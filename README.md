@@ -42,3 +42,12 @@ This project implements authentication logic for MERN stack applications, coveri
 
 ### 3. Contollers Functions
 
+1. Controller: `signup`
+   - get the request body and check if exist: email, password, name
+   - check if user with the email exist in db
+   - if not, hash the password
+   - create a random verficiationToken
+   - create a new user with defined `User` model structure
+   - save the user to db
+   - create a jwt token with the saved user.\_id and set it to response.cookie for authentication, later
+   - return the success resopnse

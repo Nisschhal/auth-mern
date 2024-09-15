@@ -32,4 +32,5 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+export const User = mongoose.model("User", userSchema);
 // timestamps: true will automatically add createdAt and updatedAt filed into DB.

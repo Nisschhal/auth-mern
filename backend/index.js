@@ -22,13 +22,11 @@ const PORT = process.env.PORT || 5000;
 // App on Express Server Initializtion
 const app = express();
 
-// Base URL '/'
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
+// Use Middleware express.json() to parse the incoming json data: req.body
+app.use(express.json());
 
 // Authentication routes in URL: /api/auth
-
+app.get("/", (req, res) => res.send("working"));
 app.use("/api/auth", authRoutes);
 
 // Listening the app on Server PORT: 300
