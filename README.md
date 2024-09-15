@@ -1,1 +1,1 @@
-# Authenticaion using MERN
+# Authentication using MERN
