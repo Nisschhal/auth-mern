@@ -9,6 +9,7 @@ import bcrypt from "bcryptjs";
 
 import { User } from "../backend/models/user.models.js";
 import { generateTokenAndSetCookie } from "../backend/utils/generateTokenAndSetCookie.js";
+import { sendVerificationEmail } from "../backend/mailTrap/emails.js";
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
   try {
@@ -28,6 +29,8 @@ export const signup = async (req, res) => {
     const verificationToken = (
       Math.floor(Math.random() * 10000) + 1
     ).toString();
+
+    // structure the user
     const user = new User({
       email,
       password: hashedPassword,
@@ -41,6 +44,9 @@ export const signup = async (req, res) => {
 
     // set the jwt auth token to response cookie
     generateTokenAndSetCookie(res, user._id);
+
+    // send the verification code to email
+    sendVerificationEmail(user.email, verificationToken);
 
     // return the response
     res.status(201).json({

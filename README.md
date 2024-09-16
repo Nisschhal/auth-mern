@@ -10,44 +10,54 @@ This project implements authentication logic for MERN stack applications, coveri
 
 ## Implementation Steps
 
-### 1. Dependencies, SERVER and DATABASE setup
+### 1. Dependencies, Server, and Database Setup
 
 1. **Create Project Structure**: Set up a project directory with `backend` and `frontend` subdirectories.
 2. **Initialize and Install Dependencies**:
-   - **express**: for server setup
-   - **cookie-parser**: for handling cookies in headers
-   - **mailtrap**: for email authentication and verification codes
-   - **bcryptjs**: for password hashing
-   - **dotenv**: for managing environment variables
-   - **jsonwebtoken**: for session management and token verification
-   - **mongoose**: for database interactions
-   - **crypto**: for cryptographic functions
-   - **nodemon**: for live changes feedbacks
-3. Initialize `Server/index.js` and Listen on PORT: **3000**;
-4. Initialize the `dotenv` for MONGODB_URL and set up the database connection with it in `db/connectDB.js`
+   - `express`: Server setup
+   - `cookie-parser`: Handling cookies in headers
+   - `mailtrap`: Email authentication and verification
+   - `bcryptjs`: Password hashing
+   - `dotenv`: Managing environment variables
+   - `jsonwebtoken`: Session management and token verification
+   - `mongoose`: Database interactions
+   - `crypto`: Cryptographic functions
+   - `nodemon`: Live change feedback
+3. Initialize `server/index.js` and listen on **PORT 3000**.
+4. Set up `dotenv` for `MONGODB_URL` and establish the database connection in `db/connectDB.js`.
 
 ---
 
 ## 2. Routes, Controllers, and Models
 
-1. Create a separate `routes/auth.routes.js` for 'api/auth' routes : `/signup`, `/login`, and `/logout`
-   - Initailize the router using **express.Router()**
-   - Create each mentioned authentication routes
-2. Create `controllers/auth.controllers.js'`: function for each route, for each routes.
-3. Create `models/user.models.js`: a model to map user into DB collection
-   - Initialize the `new mongoose.Schenma({..define data structure}, {timestamp:true})`
-   - export the defined Schema by mapping the model to DB collection
+1. Create `routes/auth.routes.js` for 'api/auth' routes: `/signup`, `/login`, and `/logout`.
+   - Initialize the router using `express.Router()`.
+   - Define the authentication routes.
+2. Create `controllers/auth.controllers.js`: Functions for each route.
+3. Create `models/user.models.js`: A model to map users to the database collection.
+   - Define the schema with `new mongoose.Schema({...}, { timestamps: true })`.
+   - Export the schema by mapping the model to the database collection.
 
 ---
 
-### 3. Contollers Functions
+### 3. Controller Functions
 
-1. Controller: `signup`
-   - get the request body and check if exist: email, password, name
-   - check if user with the email exist in db
-   - if not, hash the password
-   - create a random verficiationToken
-   - create a new user with defined `User` model structure
-   - save the user to db
-   - create a jwt token with the saved user.\_id and set it to response.cookie for authentication, later
-   - return the success resopnse
+1. **Signup Controller**:
+
+   - Extract `email`, `password`, and `name` from the request body.
+   - Check if a user with the provided email exists in the database.
+   - If not, hash the password and create a random verification token.
+   - Create a new user using the `User` model structure.
+   - Save the user to the database.
+   - Create a JWT token using `user._id` and set it in `response.cookie` for authentication.
+   - Return a success response.
+
+2. **Email Verification Using `mailtrap`**:
+   - After setting the verification token in the cookie, generate a verification code using the user's email.
+   - Set up `mailTrap/mailTrap.config.js`, where `mailTrapClient` and sender details (domain or test domain) are exported.
+   - Create two new files in `mailTrap`:
+     - **emailTemplates.js**: Contains `EMAIL_VERIFICATION_TEMPLATE`, `EMAIL_RECOVERY_REQUEST_TEMPLATE`, and `EMAIL_RESET_SUCCESS_TEMPLATE`.
+       - Customize these templates with placeholders for the verification code.
+     - **generateVerificationToken.js**: Function that takes `email` and `verificationCode` as parameters.
+       - Use the provided email to send the email and replace the template placeholder with the `verificationCode`.
+   - Call this function in the **signup controller** after setting the authentication token in the cookie.
