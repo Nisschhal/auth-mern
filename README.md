@@ -61,3 +61,7 @@ This project implements authentication logic for MERN stack applications, coveri
      - **generateVerificationToken.js**: Function that takes `email` and `verificationCode` as parameters.
        - Use the provided email to send the email and replace the template placeholder with the `verificationCode`.
    - Call this function in the **signup controller** after setting the authentication token in the cookie.
+
+3. **Verify the email**:
+   - Create a route `/verify-email` with its controller function
+   - 
