@@ -68,11 +68,41 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  res.send("/login Route");
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user)
+      return res.status(404).json({ success: false, message: "Invalid Email" });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid Credential!" });
+
+    generateTokenAndSetCookie(res, user._id);
+
+    user.lasLogin = Date.now();
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Logged In Successfully!",
+      user: {
+        ...user._doc,
+        password: undefined,
+      },
+    });
+  } catch (error) {
+    console.log(`Error while login: ${error}`);
+  }
 };
 
 export const logout = async (req, res) => {
-  res.send("/logout Route");
+  res.clearCookie("token");
+  res
+    .status(200)
+    .json({ status: true, message: "User logged out successfully!" });
 };
 
 // VERIFY THE EMAIL: check the user with that code and its expiry date, remove the verficationToken from the user, set isVerified to true, send the welcome email
