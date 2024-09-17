@@ -53,6 +53,7 @@ This project implements authentication logic for MERN stack applications, coveri
    - Return a success response.
 
 2. **Email Verification Using `mailtrap`**:
+
    - After setting the verification token in the cookie, generate a verification code using the user's email.
    - Set up `mailTrap/mailTrap.config.js`, where `mailTrapClient` and sender details (domain or test domain) are exported.
    - Create two new files in `mailTrap`:
@@ -63,5 +64,10 @@ This project implements authentication logic for MERN stack applications, coveri
    - Call this function in the **signup controller** after setting the authentication token in the cookie.
 
 3. **Verify the email**:
-   - Create a route `/verify-email` with its controller function
-   - 
+   - Create a route `/verify-email` with its controller function and attach the verifyEmail function with it
+   - **verifyEmail**
+     - get the code from req.body
+     - check if the code exists with its expirydate being valid and get that user
+     - if yes, update the user's isVerified to true, and verification, and verificationExpiriesAt to undefined
+     - now, send the welcomeEmail(email, user)
+     - return the response
