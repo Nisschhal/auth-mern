@@ -64,6 +64,7 @@ This project implements authentication logic for MERN stack applications, coveri
    - Call this function in the **signup controller** after setting the authentication token in the cookie.
 
 3. **Verify the email**:
+
    - Create a route `/verify-email` with its controller function and attach the verifyEmail function with it
    - **verifyEmail**
      - get the code from req.body
@@ -71,3 +72,17 @@ This project implements authentication logic for MERN stack applications, coveri
      - if yes, update the user's isVerified to true, and verification, and verificationExpiriesAt to undefined
      - now, send the welcomeEmail(email, user)
      - return the response
+
+4. **Verify the logged in user**:
+   - Create a route `/check-auth` and add `middleware:verifyToken/protectedRoute` to extract the **userId** from the incoming request aka `cookie` via `jsonwebtoken` and attach to **_request.userId_**
+   - verify the extracted **_userId_** if exits in db
+   - if yes, send the success/verified response
+
+---
+
+### Backend Overview (Node.js/Express, Mongodb):
+
+1.  Project is setup with required dependencies; routes with their controllers, and User model to store and manipulate authenticated user data.
+2.  Routes for different Authentication operation is created with respective Controllers and logic in it.
+3.  `mailtrap` is used to send verfication, password forget, reset, and success. Also, welcome for newly verified user.
+4.  `mongoose`: mongodb atlast is used for the database/storage
