@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 /**
  * 1. CREATE an app
  * 2. LISTEN / RUN that app into a server with port:3000
@@ -24,6 +25,9 @@ const app = express();
 
 // Use Middleware express.json() to parse the incoming json data: req.body
 app.use(express.json());
+
+// Use middlware to use incoming cookies
+app.use(cookieParser());
 
 // Authentication routes in URL: /api/auth
 app.get("/", (req, res) => res.send("working"));

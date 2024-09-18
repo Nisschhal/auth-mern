@@ -222,3 +222,29 @@ export const resetPassword = async (req, res) => {
     console.log(`Error while resetting password: ${error}`);
   }
 };
+
+/** CHECK IF USER IS AUTHENTICATED:
+ * extract the userId from the middleware request
+ * check if user exist in db
+ * send the response
+ */
+
+export const checkAuth = async (req, res) => {
+  try {
+    // Ensure req.userId is available and is a valid ID
+    if (!req.userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID not provided!" });
+    }
+
+    const user = await User.findById(req.userId).select("-password");
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found!!" });
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.log(`Error while authenticating user: ${error.message}`);
+  }
+};
