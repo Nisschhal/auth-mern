@@ -8,14 +8,14 @@
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
-import { User } from "../backend/models/user.models.js";
-import { generateTokenAndSetCookie } from "../backend/utils/generateTokenAndSetCookie.js";
+import { User } from "../models/user.models.js";
+import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 import {
   sendVerificationEmail,
   sendWelcomEmail,
   sendResetPasswordEmail,
   sendPasswordResetSuccessEmail,
-} from "../backend/mailTrap/emails.js";
+} from "../mailTrap/emails.js";
 
 // SIGN UP LOGIC: get the data, verify the data, create a email verfication code, save the user with that code, create and set jwt auth token on cookie, send the verification email to the user
 export const signup = async (req, res) => {

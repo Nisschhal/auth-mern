@@ -7,7 +7,7 @@ import {
   forgetPassword,
   resetPassword,
   checkAuth,
-} from "../../controllers/auth.controllers.js";
+} from "../controllers/auth.controllers.js";
 import { verifyToken } from "../middleware/middleware.js";
 
 // Router Initialization from 'express.Router()'

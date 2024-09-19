@@ -174,3 +174,17 @@ Contributions are welcome! Please follow these steps to contribute:
 3. Commit your changes (`git commit -m 'Add some feature'`).
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Open a pull request.
+
+---
+---
+---
+
+# Frontend 
+
+## Implementation Steps
+   
+### Dependencies:
+   - step into frontend directory: `cd frontend`
+   - Install vite: `npm install vite@latest` with **React** and **JavaScript**
+   - Install `tailwindcss` following its docs and setups
+   - 
