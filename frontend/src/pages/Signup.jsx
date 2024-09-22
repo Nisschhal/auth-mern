@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { User, Mail, Lock } from "lucide-react";
+import { User, Mail, Lock, Loader } from "lucide-react";
 import Input from "../components/Input";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const isLoading = false;
   return (
     <motion.div
       className={`max-w-md w-full bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl`}
@@ -62,14 +63,19 @@ const Signup = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
+            disabled={isLoading}
           >
-            Sign up
+            {isLoading ? (
+              <Loader className="size-6 text-center mx-auto animate-spin" />
+            ) : (
+              "Sign up"
+            )}
           </motion.button>
         </form>
       </div>
 
       {/* Already have an account */}
-      <div className="px-8 py-4 flex justify-center bg-gray-900 opacity-50 rounded-b-2xl">
+      <div className="px-8 py-4 flex justify-center bg-gray-900 bg-opacity-50 rounded-b-2xl">
         <p className="text-sm text-gray-400">
           Already have an account?{" "}
           <Link className="text-green-400 hover:underline" to="/login">
