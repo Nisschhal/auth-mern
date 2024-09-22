@@ -84,7 +84,7 @@ To use the application, follow these steps:
 - **POST** `/api/auth/forgot-password`: Send password reset link.
 - **POST** `/api/auth/reset-password`: Reset user's password.
 
-## Implementation Steps
+## Implementation Steps (BACKEND)
 
 ### 1. Dependencies, Server, and Database Setup
 
@@ -176,15 +176,26 @@ Contributions are welcome! Please follow these steps to contribute:
 5. Open a pull request.
 
 ---
----
+
 ---
 
-# Frontend 
+---
 
-## Implementation Steps
-   
-### Dependencies:
-   - step into frontend directory: `cd frontend`
-   - Install vite: `npm install vite@latest` with **React** and **JavaScript**
-   - Install `tailwindcss` following its docs and setups
-   - 
+# Frontend
+
+## Implementation Steps (FRONTEND)
+
+### 1. Install and Initalize Dependencies (SETUP)
+
+- step into frontend directory: `cd frontend`
+- Install vite: `npm install vite@latest` with **React** and **JavaScript**
+- Install `tailwindcss` for style following its docs and setups
+- Install `react-router-dom` for routes: `/`, `/signup`, `/login`.
+- Install `lucide-react` for icons
+
+### 2. UIs and Components
+
+1.  Signup UI:
+    - Background with gradient and floating shapes for animation
+    - Card for form, inputs, and icons
+2.  Login UI:
