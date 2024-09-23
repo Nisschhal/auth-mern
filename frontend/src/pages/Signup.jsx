@@ -77,7 +77,7 @@ const Signup = () => {
       {/* Already have an account */}
       <div className="px-8 py-4 flex justify-center bg-gray-900 bg-opacity-50 rounded-b-2xl">
         <p className="text-sm text-gray-400">
-          Already have an account?{" "}
+          Already have an account?
           <Link className="text-green-400 hover:underline" to="/login">
             Login
           </Link>
