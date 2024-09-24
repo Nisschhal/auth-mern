@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 /**
  * 1. CREATE an app
  * 2. LISTEN / RUN that app into a server with port:3000
@@ -23,6 +24,8 @@ const PORT = process.env.PORT || 5000;
 // App on Express Server Initializtion
 const app = express();
 
+// use cors
+app.use(cors({ orgin: "http://localhost:5173", credentials: true }));
 // Use Middleware express.json() to parse the incoming json data: req.body
 app.use(express.json());
 
