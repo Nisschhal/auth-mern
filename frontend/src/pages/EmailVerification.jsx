@@ -1,13 +1,13 @@
-
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-
+import { useAuthStore } from "../../store/authStore";
+import { useNavigate } from "react-router-dom";
 const EmailVerification = () => {
   // for input reference
   const inputRefs = useRef([]);
-  const [code, setCode] = useState(["", "", "", "", ""]);
-  const isLoading = false;
-
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const { isLoading, error, verifyMail } = useAuthStore();
+  const navigate = useNavigate();
   // for any changes in input el
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -50,13 +50,16 @@ const EmailVerification = () => {
   };
 
   // form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const verificationCode = code.join("");
+    await verifyMail(verificationCode);
+    navigate("/");
     console.log("Code submitted successfully!", verificationCode);
   };
-  // useEffect to check if all the input field is entered as code is set to 6 digits
+
+  // if all input field is occupied
   useEffect(() => {
     if (code.every((digit) => digit !== "")) {
       handleSubmit(new Event("submit"));
@@ -89,6 +92,10 @@ const EmailVerification = () => {
             />
           ))}
         </div>
+        {/* Error  */}
+        {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
+
+        {/* Verify button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
