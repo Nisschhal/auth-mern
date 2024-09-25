@@ -20,6 +20,23 @@ export const useAuthStore = create((set) => ({
   isLoading: false,
   isCheckingAuth: true,
 
+  login: async (email, password) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/login`, {
+        email,
+        password,
+      });
+      set({
+        user: response.data.user,
+        isLoading: false,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      set({ error: error.response.data.message });
+    }
+  },
+
   signup: async (email, password, name) => {
     // intiate loading spinner as api is calling
     set({ isLoading: true, error: null });
@@ -57,7 +74,7 @@ export const useAuthStore = create((set) => ({
         isAuthenticated: true,
       });
 
-      // set the toast message 
+      // set the toast message
       toast.success("Email Verified Successfully!");
     } catch (error) {
       set({
@@ -65,6 +82,26 @@ export const useAuthStore = create((set) => ({
         isLoading: false,
       });
       throw error;
+    }
+  },
+
+  // check and set isCheckingAuth and isAuthenticated
+  checkAuth: async () => {
+    set({ isCheckingAuth: true, error: null });
+    try {
+      const response = await axios.get(`${API_URL}/check-auth`);
+      set({
+        user: response.data.user,
+        isCheckingAuth: false,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      // error is ignored because it will show in login: Unauthorized without login as error is registered, hence set null
+      set({
+        error: null,
+        isCheckingAuth: false,
+        isAuthenticated: false,
+      });
     }
   },
 }));

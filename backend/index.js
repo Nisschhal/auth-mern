@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 // use cors
-app.use(cors({ orgin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 // Use Middleware express.json() to parse the incoming json data: req.body
 app.use(express.json());
 
@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => res.send("working"));
 app.use("/api/auth", authRoutes);
 
-// Listening the app on Server PORT: 300
+// Listening the app on Server PORT: 3000
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server running at port:${PORT}`);

@@ -1,10 +1,42 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { FloatingShape } from "./components/FloatingShape";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import EmailVerification from "./pages/EmailVerification";
 import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "../store/authStore";
+import { useEffect } from "react";
+import Dashboard from "./pages/Dashboard";
+
+// Redirect authenticated user to homepage/dashboard
+const RedirectAuthenticatedUser = ({ children }) => {
+  const { isAuthenticated, user } = useAuthStore();
+  // if user is authenticated and verified pass them to dashboard or home page
+  if (isAuthenticated && user.isVerified) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
+// redirect user to dashboard if authenticated else to login or verify-email respectively
+const ProtectedRoutes = ({ children }) => {
+  const { isAuthenticated, user } = useAuthStore();
+  // login if not authenticated at load page
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  // verify email page if signedup but not verified
+  if (!user.isVerified) return <Navigate to="/verify-email" replace />;
+  // else let it be
+  return children;
+};
+
 function App() {
+  const { checkAuth } = useAuthStore();
+
+  // check as soon as, if user is already logged in or authenticated
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br
@@ -33,12 +65,33 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={"Home"} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoutes>
+              <Dashboard />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <RedirectAuthenticatedUser>
+              <Signup />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RedirectAuthenticatedUser>
+              <Login />
+            </RedirectAuthenticatedUser>
+          }
+        />
         <Route path="/verify-email" element={<EmailVerification />} />
       </Routes>
-      {/* Call Toas if there is any */}
+      {/* Call Toast if there is any */}
       <Toaster />
     </div>
   );

@@ -148,7 +148,7 @@ To use the application, follow these steps:
 4. **Verify the Logged-in User**:
    - Create a route `/check-auth` and add `middleware:verifyToken/protectedRoute` to extract the `userId` from the incoming request via `cookie` using `jsonwebtoken` and attach to `request.userId`.
    - Verify the extracted `userId` if it exists in the database.
-   - If yes, send the success/verified response.
+   - If yes, send the success/verified response with user for frontend to verify.
 
 ### Backend Overview (Node.js/Express, MongoDB)
 
@@ -192,10 +192,30 @@ Contributions are welcome! Please follow these steps to contribute:
 - Install `tailwindcss` for style following its docs and setups
 - Install `react-router-dom` for routes: `/`, `/signup`, `/login`.
 - Install `lucide-react` for icons
+- Install `zustand` for authStore
+- Install `axios` for api calls from backend
+- Install `cors` for cross orgin policy check
 
 ### 2. UIs and Components
 
-1.  Signup UI:
-    - Background with gradient and floating shapes for animation
-    - Card for form, inputs, and icons
-2.  Login UI:
+1. Signup and Login UI :
+   - Background with gradient and floating shapes for animation
+   - Card for form, inputs, and icons
+   - Password strength meter and their logics
+2. Login UI:
+   - Same as Sign up but with just loader and error
+3. Email Verification UI:
+   - Input fields for 6 digits codes with ref hook
+   - Backspace logic to move back and focus on next as code entered
+   - Auto submission when entered all digits
+
+### 3. Authentication process
+
+==> Create a store/authStore
+
+1. uses `zustand` for authentication store
+   - `isAuthenticated`, `isLoading`, `error`, `user`, `isCheckingAuth`, `signup()`, `verifyMail()`, `checkAuth()`
+2. uses `axios` for api calls from backend
+   - need to set **axios.defaults.withCredentials** to true for sending cookies on each requests to server.
+   - don't forget to set cors in backend to send request as sever might not provide access to resources
+     - **app.use(cors({origin: `client_url`, credentials: true}))**
