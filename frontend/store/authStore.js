@@ -19,7 +19,7 @@ export const useAuthStore = create((set) => ({
   error: null,
   isLoading: false,
   isCheckingAuth: true,
-
+  // login operation
   login: async (email, password) => {
     set({ isLoading: true, error: null });
     try {
@@ -37,6 +37,7 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  // signup operations
   signup: async (email, password, name) => {
     // intiate loading spinner as api is calling
     set({ isLoading: true, error: null });
@@ -63,6 +64,7 @@ export const useAuthStore = create((set) => ({
       throw error;
     }
   },
+
   verifyMail: async (code) => {
     // intiate the loading and previous error to null, if any
     set({ isLoading: true, error: null });
@@ -102,6 +104,17 @@ export const useAuthStore = create((set) => ({
         isCheckingAuth: false,
         isAuthenticated: false,
       });
+    }
+  },
+
+  // logout operation
+  logout: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      await axios.get(`${API_URL}/logout`);
+      set({ isLoading: false, user: null, isAuthenticated: false });
+    } catch (error) {
+      set({ error: error.response.data.message });
     }
   },
 }));

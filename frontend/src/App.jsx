@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "../store/authStore";
 import { useEffect } from "react";
 import Dashboard from "./pages/Dashboard";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 // Redirect authenticated user to homepage/dashboard
 const RedirectAuthenticatedUser = ({ children }) => {
@@ -30,12 +31,16 @@ const ProtectedRoutes = ({ children }) => {
 };
 
 function App() {
-  const { checkAuth } = useAuthStore();
+  const { checkAuth, isCheckingAuth, user } = useAuthStore();
 
   // check as soon as, if user is already logged in or authenticated
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  // while checkauth runs show loadingspinner
+  if (isCheckingAuth) return <LoadingSpinner />;
+  console.log(user);
 
   return (
     <div

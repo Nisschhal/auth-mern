@@ -75,7 +75,7 @@ const Login = () => {
             {isLoading ? (
               <Loader className="size-6 text-center mx-auto animate-spin" />
             ) : (
-              "Sign up"
+              "Login"
             )}
           </motion.button>
         </form>
