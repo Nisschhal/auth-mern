@@ -4,7 +4,7 @@ import {
   logout,
   signup,
   verifyEmail,
-  forgetPassword,
+  forgotPassword,
   resetPassword,
   checkAuth,
 } from "../controllers/auth.controllers.js";
@@ -29,7 +29,7 @@ router.get("/logout", logout);
 router.post("/verify-email", verifyEmail);
 
 // FORGET PASSWORD: '/forget-password'
-router.post("/forget-password", forgetPassword);
+router.post("/forgot-password", forgotPassword);
 
 // RESET PASSWORD: '/reset-password'
 router.post("/reset-password/:token", resetPassword);

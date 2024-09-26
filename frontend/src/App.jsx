@@ -8,6 +8,8 @@ import { useAuthStore } from "../store/authStore";
 import { useEffect } from "react";
 import Dashboard from "./pages/Dashboard";
 import LoadingSpinner from "./components/LoadingSpinner";
+import FrogotPassword from "./pages/ForgotPassword";
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Redirect authenticated user to homepage/dashboard
 const RedirectAuthenticatedUser = ({ children }) => {
@@ -94,7 +96,22 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
-        <Route path="/verify-email" element={<EmailVerification />} />
+        <Route
+          path="/verify-email"
+          element={
+            <RedirectAuthenticatedUser>
+              <EmailVerification />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <RedirectAuthenticatedUser>
+              <ForgotPassword />
+            </RedirectAuthenticatedUser>
+          }
+        />
       </Routes>
       {/* Call Toast if there is any */}
       <Toaster />

@@ -147,7 +147,7 @@ export const verifyEmail = async (req, res) => {
 };
 
 // FORGET PASSWORD: verify the email, create a reset token using crypto, set the token and its expiry to user and save it, and send the reset email with that token url
-export const forgetPassword = async (req, res) => {
+export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {
     const user = await User.findOne({ email });
