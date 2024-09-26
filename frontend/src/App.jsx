@@ -8,7 +8,7 @@ import { useAuthStore } from "../store/authStore";
 import { useEffect } from "react";
 import Dashboard from "./pages/Dashboard";
 import LoadingSpinner from "./components/LoadingSpinner";
-import FrogotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 
 // Redirect authenticated user to homepage/dashboard
@@ -109,6 +109,14 @@ function App() {
           element={
             <RedirectAuthenticatedUser>
               <ForgotPassword />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPassword />
             </RedirectAuthenticatedUser>
           }
         />
