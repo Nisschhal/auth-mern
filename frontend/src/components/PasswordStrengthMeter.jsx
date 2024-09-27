@@ -112,7 +112,7 @@ const PasswordMeter = ({ password }) => {
 // CALL THE PASSWORMETER WHICH HAS ALL THE PARTS: Progress strength, name, and bar, and password criteria
 const PasswordStrengthMeter = ({ password }) => {
   return (
-    <div>
+    <div className="mb-6">
       <PasswordMeter password={password} />
     </div>
   );

@@ -52,7 +52,6 @@ export const sendResetPasswordEmail = async (email, resetUrl) => {
     "{resetURL}",
     resetUrl
   );
-  console.log(template);
   try {
     const response = await mailTrapClient.send({
       from: sender,
