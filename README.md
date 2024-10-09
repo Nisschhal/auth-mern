@@ -195,6 +195,7 @@ Contributions are welcome! Please follow these steps to contribute:
 - Install `zustand` for authStore
 - Install `axios` for api calls from backend
 - Install `cors` for cross orgin policy check
+- Install `react-hot-toast` for toast
 
 ### 2. UIs and Components
 
