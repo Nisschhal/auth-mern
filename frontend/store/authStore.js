@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
 import toast from "react-hot-toast";
-const backendUrl = "https://auth-mern-dev-nischal-backend.vercel.app/";
-const API_URL = backendUrl || "http://localhost:5000/api/auth";
+
+const API_URL = "http://localhost:5000/api/auth";
 
 // make sure to send cookies in header for auth token or credentials
 axios.defaults.withCredentials = true;
