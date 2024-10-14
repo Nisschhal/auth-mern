@@ -233,3 +233,13 @@ Contributions are welcome! Please follow these steps to contribute:
 
 4. Use the backend apis call to get the respective signup, login, forgot password logics
    - called these apis in created authStore() and export to invoke in required places or pages
+
+## Deployment
+
+- root directory: ./
+  - In `package.json` file create a scripts:
+    - `build: "npm install  && npm install --prefix frontend && npm run build --prefix frontend"`
+      1. npm install: install all root level dependencies
+      2. npm install --prefix frontend: install all frontend dependencies
+      3. npm build --prefix frontend: build the frontend/React app inside **dist** folder
+   - In 
