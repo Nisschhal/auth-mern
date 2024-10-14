@@ -190,6 +190,7 @@ Contributions are welcome! Please follow these steps to contribute:
 - step into frontend directory: `cd frontend`
 - Install vite: `npm install vite@latest` with **React** and **JavaScript**
 - Install `tailwindcss` for style following its docs and setups
+- Install `framer-motion` for animations
 - Install `react-router-dom` for routes: `/`, `/signup`, `/login`.
 - Install `lucide-react` for icons
 - Install `zustand` for authStore
@@ -209,6 +210,11 @@ Contributions are welcome! Please follow these steps to contribute:
    - Input fields for 6 digits codes with ref hook
    - Backspace logic to move back and focus on next as code entered
    - Auto submission when entered all digits
+4. Forgot Password
+   - Send the reset mail to registered email
+   - use the link and set a new password
+5. Dashboard
+   - Nothing much, just show the name, email, last login and joined date.
 
 ### 3. Authentication process
 
@@ -220,3 +226,10 @@ Contributions are welcome! Please follow these steps to contribute:
    - need to set **axios.defaults.withCredentials** to true for sending cookies on each requests to server.
    - don't forget to set cors in backend to send request as sever might not provide access to resources
      - **app.use(cors({origin: `client_url`, credentials: true}))**
+3. Redirect users
+
+   - If authenticated do nothing or redirect to login page
+   - If not, redirect to login/signup or email verify, if already signed up
+
+4. Use the backend apis call to get the respective signup, login, forgot password logics
+   - called these apis in created authStore() and export to invoke in required places or pages
