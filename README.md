@@ -181,65 +181,147 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ---
 
-# Frontend
+## Frontend
 
-## Implementation Steps (FRONTEND)
+### Implementation Steps (FRONTEND)
 
-### 1. Install and Initalize Dependencies (SETUP)
+1. **Install and Initialize Dependencies (SETUP)**
 
-- step into frontend directory: `cd frontend`
-- Install vite: `npm install vite@latest` with **React** and **JavaScript**
-- Install `tailwindcss` for style following its docs and setups
-- Install `framer-motion` for animations
-- Install `react-router-dom` for routes: `/`, `/signup`, `/login`.
-- Install `lucide-react` for icons
-- Install `zustand` for authStore
-- Install `axios` for api calls from backend
-- Install `cors` for cross orgin policy check
-- Install `react-hot-toast` for toast
+   - Step into the frontend directory:
+     ```bash
+     cd frontend
+     ```
+   - Install Vite:
+     ```bash
+     npm install vite@latest
+     Set up with React and JavaScript.
+     ```
+   - Install Tailwind CSS for styling, **follow its docs and setup guide.**
 
-### 2. UIs and Components
+   - Install Framer Motion for animations:
+     ```bash
+     npm install framer-motion
+     ```
+   - Install React Router DOM for routing:
+     ```bash
+     npm install react-router-dom
+     ```
+     Define routes: `/`, `/signup`, `/login`.
+   - Install Lucide React for icons:
+     ```bash
+     npm install lucide-react
+     ```
+   - Install Zustand for state management:
+     ```bash
+     npm install zustand
+     ```
+   - Install Axios for API calls to the backend:
+     ```bash
+     npm install axios
+     ```
+   - Install CORS for cross-origin resource sharing:
+     ```bash
+     npm install cors
+     ```
+   - Install React Hot Toast for toast notifications:
+     ```bash
+     npm install react-hot-toast
+     ```
 
-1. Signup and Login UI :
-   - Background with gradient and floating shapes for animation
-   - Card for form, inputs, and icons
-   - Password strength meter and their logics
-2. Login UI:
-   - Same as Sign up but with just loader and error
-3. Email Verification UI:
-   - Input fields for 6 digits codes with ref hook
-   - Backspace logic to move back and focus on next as code entered
-   - Auto submission when entered all digits
-4. Forgot Password
-   - Send the reset mail to registered email
-   - use the link and set a new password
-5. Dashboard
-   - Nothing much, just show the name, email, last login and joined date.
+2. **UIs and Components**
 
-### 3. Authentication process
+   - **Signup and Login UI**:
+     - Background with a gradient and floating shapes for animation.
+     - Card layout for the form, inputs, and icons.
+     - Password strength meter with logic for user feedback.
+   - **Login UI**:
+     - Similar to Signup, but includes loading and error states.
+   - **Email Verification UI**:
+     - Input fields for 6-digit codes using the ref hook.
+     - Backspace logic to focus on the previous field when needed.
+     - Automatic submission when all digits are entered.
+   - **Forgot Password**:
+     - Functionality to send a password reset email to the registered email address.
+     - Link to set a new password after verification.
+   - **Dashboard**:
+     - Display user information: name, email, last login, and join date.
 
-==> Create a store/authStore
+3. **Authentication Process**
 
-1. uses `zustand` for authentication store
-   - `isAuthenticated`, `isLoading`, `error`, `user`, `isCheckingAuth`, `signup()`, `verifyMail()`, `checkAuth()`
-2. uses `axios` for api calls from backend
-   - need to set **axios.defaults.withCredentials** to true for sending cookies on each requests to server.
-   - don't forget to set cors in backend to send request as sever might not provide access to resources
-     - **app.use(cors({origin: `client_url`, credentials: true}))**
-3. Redirect users
+   - Create a store using Zustand for managing authentication state:
+     - Store properties: `isAuthenticated`, `isLoading`, `error`, `user`, `isCheckingAuth`.
+     - Store methods: `signup()`, `verifyMail()`, `checkAuth()`.
+   - Use Axios for API calls to the backend:
+     - Set `axios.defaults.withCredentials` to true for sending cookies with each request to the server.
+     - Configure CORS in the backend to allow requests:
+       ```javascript
+       app.use(cors({ origin: `client_url`, credentials: true }));
+       ```
+   - **Redirect Users**:
+     - If authenticated, do nothing or redirect to the dashboard.
+     - If not authenticated, redirect to the login/signup or email verification page, if already signed up.
+   - Use the backend API calls for signup, login, and forgot password functionalities.
+     - Call these APIs in the created `authStore()` and export them for use in the required components or pages.
 
-   - If authenticated do nothing or redirect to login page
-   - If not, redirect to login/signup or email verify, if already signed up
+### Deployment (Vercel)
 
-4. Use the backend apis call to get the respective signup, login, forgot password logics
-   - called these apis in created authStore() and export to invoke in required places or pages
+- **Root Directory**: `./`
+  - In the `package.json` file, create the following scripts:
+    ```json
+    "scripts": {
+      "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+      "start": "node backend/index.js"
+    }
+    ```
+    1. `npm install`: Installs all root-level dependencies.
+    2. `npm install --prefix frontend`: Installs all frontend dependencies.
+    3. `npm run build --prefix frontend`: Builds the frontend/React app inside the **dist** folder.
+  - Start the backend server:
+    ```bash
+    node backend/index.js
+    ```
+    1. All logic is set up in the `index.js` file.
+    2. API calls will be handled at `www.example.com/api/auth/{endpoints}`.
+    3. Routes from the frontend will be served from `www.example.com/{anything}`, handling requests through `frontend/dist/index.html`.
 
-## Deployment
+---
 
-- root directory: ./
-  - In `package.json` file create a scripts:
-    - `build: "npm install  && npm install --prefix frontend && npm run build --prefix frontend"`
-      1. npm install: install all root level dependencies
-      2. npm install --prefix frontend: install all frontend dependencies
-      3. npm build --prefix frontend: build the frontend/React app inside **dist** folder
-   - In 
+## Learning Outcomes
+
+### Frontend Implementation
+
+1. **Modern Tools**: Gained experience with **Vite** for fast development and **Tailwind CSS** for utility-first styling, enabling efficient design.
+
+2. **Component Development**: Created reusable components and integrated **Framer Motion** for enhanced animations, improving user engagement.
+
+3. **Routing & Navigation**: Utilized **React Router DOM** for seamless navigation between key components like Signup and Login.
+
+4. **State Management**: Employed **Zustand** for centralized state management, efficiently handling authentication states and API interactions.
+
+5. **API Integration**: Used **Axios** for API calls and implemented CORS policies for secure cross-origin requests.
+
+6. **User Experience**: Designed interfaces with features like password strength meters and notifications using **React Hot Toast** for instant feedback.
+
+### Backend Implementation
+
+1. **Node.js & Express**: Developed a RESTful API, structuring endpoints for user authentication and data retrieval.
+
+2. **Database Management**: Managed user data securely, implementing password hashing and email verification.
+
+3. **Authentication & Security**: Set up JWT for secure authentication and configured CORS policies to enhance security.
+
+4. **Middleware**: Utilized middleware for error handling, logging, and data validation to streamline request processing.
+
+5. **Deployment**: Established deployment scripts for both frontend and backend, ensuring smooth application startup.
+
+### Overall Outcomes
+
+- Independently developed a full-stack application, integrating frontend and backend technologies.
+- Improved problem-solving skills through real-world functionalities like user authentication and data handling.
+- Enhanced my understanding of the software development lifecycle, managing both frontend and backend tasks effectively.
+
+## Conclusion
+
+Thank you for taking the time to explore the **Auth-MERN** application. I hope this documentation provides a clear understanding of the project's architecture and implementation that I have used. If you have any questions or feedback, feel free to reach out!
+
+### Happy coding! ./
