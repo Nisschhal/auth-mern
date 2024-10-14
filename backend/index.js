@@ -18,7 +18,7 @@ import path from "path";
 // LOCAL IMPORTS: requires .js extension as type is 'module'
 import { connectDB } from "./db/connectDB.js";
 import authRoutes from "./routes/auth.routes.js";
-
+const clientUrl = "https://auth-mern-frontend-dev-nischal.vercel.app/";
 // 'dotenv': Environment Variables Initialization
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -27,7 +27,10 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const __dirname = path.resolve();
 // use cors
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({ origin: clientUrl || "http://localhost:5173", credentials: true })
+);
+
 // Use Middleware express.json() to parse the incoming json data: req.body
 app.use(express.json());
 
