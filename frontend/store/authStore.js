@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 
 const API_URL =
   import.meta.env == "development"
-    ? "http://localhost:5000/api/auth"
-    : "https://auth-mern-backend-dev-nischal.vercel.app/";
+    ? "http://localhost:5000"
+    : "https://auth-mern-backend-dev-nischal.vercel.app";
 
 // make sure to send cookies in header for auth token or credentials
 axios.defaults.withCredentials = true;
